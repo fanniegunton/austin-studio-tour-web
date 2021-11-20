@@ -110,6 +110,15 @@ export const reducer = (state, { action, value, ...props }) => {
         activeListing: value,
       }
 
+    case "activateListingAndCenter": {
+      window.scrollTo({ top: document.body.offsetHeight, behavior: "smooth" })
+      return {
+        ...state,
+        activeListing: value._id,
+        mapCenter: value.geoLocation,
+      }
+    }
+
     case "clearActiveListing":
       return {
         ...state,

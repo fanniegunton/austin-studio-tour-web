@@ -198,11 +198,23 @@ const MapView = ({
                       key={location._id}
                       {...location}
                       onClick={() => {
-                        dispatch({
-                          action: "activateListing",
-                          value: location._id,
-                          name: location.name,
-                        })
+                        dispatch(
+                          state.filters.has("bookmarkedOnly") &&
+                            state.bookmarkedStops.has(location.stopNumber)
+                            ? {
+                                action: "activateListingAndCenter",
+                                value: {
+                                  _id: location._id,
+                                  name: location.name,
+                                  geoLocation: location.geoLocation,
+                                },
+                              }
+                            : {
+                                action: "activateListing",
+                                value: location._id,
+                                name: location.name,
+                              }
+                        )
                       }}
                     />
                   ))}
