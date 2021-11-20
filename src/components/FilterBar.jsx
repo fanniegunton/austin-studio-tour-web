@@ -1,9 +1,10 @@
 import React, { useCallback, useRef } from "react"
 import PropTypes from "prop-types"
-import ModeSelector, { MODES } from "components/ModeSelector"
-import hexToRgb from "lib/hexToRgb"
-import theme from "styles/theme"
 import { debounce } from "lodash-es"
+import hexToRgb from "lib/hexToRgb"
+import ModeSelector, { MODES } from "components/ModeSelector"
+import Checkbox from "components/Checkbox"
+import theme from "styles/theme"
 
 const FilterBar = ({
   listTitle,
@@ -27,11 +28,11 @@ const FilterBar = ({
     []
   )
 
-  // const toggleFilter = value =>
-  //   dispatch({
-  //     action: "toggleFilter",
-  //     value,
-  //   })
+  const toggleFilter = value =>
+    dispatch({
+      action: "toggleFilter",
+      value,
+    })
 
   return (
     <div
@@ -98,6 +99,16 @@ const FilterBar = ({
               [theme.smallMobile]: { minWidth: 160 },
             }}
           />
+
+          <Checkbox
+            onChange={() => toggleFilter("showEast")}
+            checked={filters.has("showEast")}
+            css={{
+              flex: "0 0 auto",
+            }}
+          >
+            East Stops Only
+          </Checkbox>
         </div>
       </div>
 

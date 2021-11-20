@@ -14,6 +14,7 @@ const HomePage = ({
       <TourStopsViewer
         tourStops={tourStops}
         defaultSearchQuery=""
+        defaultFilters={["showEast"]}
         showingAll={true}
       />
     </Layout>

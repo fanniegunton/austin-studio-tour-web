@@ -92,6 +92,8 @@ const filters = {
           lat < bounds.nw.lat &&
           lat > bounds.se.lat
       ),
+  showEast: list => list.filter(entry => entry.stopType === "east"),
+  showWest: list => list.filter(entry => entry.stopType === "west"),
 }
 
 const fuseConfig = {
@@ -104,4 +106,4 @@ const fuseConfig = {
 }
 
 const applyFilters = (list, filters) =>
-  filters.filter(x => x).reduce((results, filter) => filter(results), list)
+  filters.filter(Boolean).reduce((results, filter) => filter(results), list)
