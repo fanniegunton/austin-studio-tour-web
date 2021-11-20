@@ -19,7 +19,7 @@ import { ReactComponent as MapMarker } from "images/MapMarker.svg"
 // import { ReactComponent as Merch } from "images/Merch.svg"
 // import { ReactComponent as Phone } from "images/Phone.svg"
 // import { ReactComponent as Pin } from "images/Pin.svg"
-// import { ReactComponent as Tag } from "images/Tag.svg"
+import { ReactComponent as Tag } from "images/Tag.svg"
 import { ReactComponent as Tiles } from "images/Tiles.svg"
 // import { ReactComponent as Warning } from "images/Warning.svg"
 import { ReactComponent as Website } from "images/Website.svg"
@@ -47,7 +47,7 @@ const Icons = {
   // Merch,
   // Phone,
   // Pin,
-  // Tag,
+  Tag,
   Tiles,
   // Warning,
   Website,

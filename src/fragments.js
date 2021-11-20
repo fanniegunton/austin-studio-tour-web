@@ -15,6 +15,9 @@ export const fragments = graphql`
     mainImage {
       ...ImageWithPreview
     }
+    artistPhoto {
+      ...ImageWithPreview
+    }
     geoLocation {
       lat
       lng

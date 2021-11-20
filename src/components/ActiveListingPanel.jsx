@@ -105,9 +105,14 @@ const ActiveListingPanel = ({ listing: currentListing, dispatch }) => {
           >
             {listing.name}
           </h3>
+
+          <div css={{ fontFamily: "monospace", whiteSpace: "nowrap" }}>
+            <span css={{ fontSize: "smaller" }}>#</span>
+            {listing.stopNumber}
+          </div>
         </div>
 
-        <ActiveRestaurantDetails {...listing} />
+        <ArtistDetails css={{ marginBottom: 16 }} {...listing} />
       </div>
     </ScrollLock>
   )
@@ -115,52 +120,8 @@ const ActiveListingPanel = ({ listing: currentListing, dispatch }) => {
 
 export default ActiveListingPanel
 
-const ActiveRestaurantDetails = ({
-  openForBusiness,
-  name,
-  stopType,
-  stopNumber,
-  category,
-  address,
-  astUrl,
-  website,
-  artistStatement,
-  bio,
-}) => (
-  <div css={{ fontSize: 14 }}>
-    <ArtistDetails
-      css={{ marginBottom: 16 }}
-      name={name}
-      stopType={stopType}
-      stopNumber={stopNumber}
-      category={category}
-      address={address}
-      astUrl={astUrl}
-      website={website}
-      artistStatement={artistStatement}
-      bio={bio}
-    />
-  </div>
-)
-
-ActiveRestaurantDetails.propTypes = {
-  onClick: PropTypes.func,
-  artistStatement: PropTypes.string,
-  bio: PropTypes.string,
-  className: PropTypes.string,
-  astUrl: PropTypes.string,
-  address: PropTypes.string,
-  openForBusiness: PropTypes.bool.isRequired,
-  category: PropTypes.string,
-  instagramHandle: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  stopType: PropTypes.string,
-  stopNumber: PropTypes.string,
-  website: PropTypes.string,
-}
-
 ActiveListingPanel.propTypes = {
-  listing: PropTypes.shape(ActiveRestaurantDetails.propTypes),
+  listing: PropTypes.shape(ArtistDetails.propTypes),
   dispatch: PropTypes.func.isRequired,
 }
 
