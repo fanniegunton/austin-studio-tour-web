@@ -102,7 +102,7 @@ const createMapOptions = maps => ({
     {
       featureType: "transit",
       elementType: "labels.icon",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     { elementType: "geometry", stylers: [{ color: "#17273A" }] },
     {
@@ -125,7 +125,7 @@ const createMapOptions = maps => ({
     },
     {
       featureType: "poi.attraction",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     {
       featureType: "poi.park",
@@ -139,15 +139,15 @@ const createMapOptions = maps => ({
     },
     {
       featureType: "poi.business",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     {
       featureType: "poi.government",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     {
       featureType: "poi.medical",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     {
       featureType: "poi.place_of_worship",
@@ -155,11 +155,11 @@ const createMapOptions = maps => ({
     },
     {
       featureType: "poi.school",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     {
       featureType: "poi.sports_complex",
-      stylers: [{ visibility: "off" }],
+      stylers: [{ visibility: "on" }],
     },
     {
       featureType: "road",
