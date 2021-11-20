@@ -1,10 +1,13 @@
-import React, { useReducer, useMemo } from "react"
+import React, { useReducer, useMemo, useEffect } from "react"
 import Fuse from "fuse.js"
 import { reducer, initialState } from "reducers/tourStopsViewer"
 import { MODES } from "components/ModeSelector"
 import FilterBar from "components/FilterBar"
 import MapView from "components/MapView"
 import NoResults from "components/NoResults"
+import useStorage from "hooks/useStorage"
+
+let hasInitialized = false
 
 const TourStopsViewer = ({
   tourStops,
@@ -20,6 +23,28 @@ const TourStopsViewer = ({
     searchQuery: defaultSearchQuery || "",
     filters: new Set(defaultFilters),
   })
+
+  const [bookmarks, setBookmarks] = useStorage("bookmarks", {
+    initialValue: null,
+  })
+
+  useEffect(() => {
+    if (bookmarks && !hasInitialized) {
+      dispatch({ action: "loadBookmarks", value: bookmarks })
+      hasInitialized = true
+    }
+
+    window.setTimeout(() => {
+      hasInitialized = true
+    }, 2000)
+  }, [bookmarks])
+
+  useEffect(() => {
+    if (hasInitialized) {
+      setBookmarks(Array.from(state.bookmarkedStops))
+    }
+  }, [state.bookmarkedStops, setBookmarks])
+
   const fuse = useMemo(() => new Fuse(tourStops, fuseConfig), [tourStops])
 
   const filteredTourStops = useMemo(() => {

@@ -60,6 +60,19 @@ export const reducer = (state, { action, value, ...props }) => {
       }
     }
 
+    case "loadBookmarks": {
+      const bookmarkedStops = new Set(state.bookmarkedStops)
+
+      value.forEach(tourStop => {
+        bookmarkedStops.add(tourStop)
+      })
+
+      return {
+        ...state,
+        bookmarkedStops,
+      }
+    }
+
     case "setSearchQuery":
       return {
         ...state,
