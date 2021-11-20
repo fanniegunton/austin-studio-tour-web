@@ -77,7 +77,7 @@ const ListItem = React.memo(
 
           {address && (
             <div css={{ fontSize: 14, marginBottom: 6, color: theme.n50 }}>
-              {address.slice(0, address.indexOf(","))}
+              {address}
             </div>
           )}
           {category && (
