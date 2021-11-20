@@ -54,11 +54,13 @@ const MapView = ({
   const mobile = useMediaQuery(theme.mobile)
   const [mapOpen, setMapOpen] = useState(true)
 
-  const paginatedTourStops = useMemo(
-    () =>
-      currentTourStops
+  // Only sort by distance when there is no search query
+  const paginatedTourStops = state.searchQuery
+    ? currentTourStops
         .filter(tourStop => tourStop.geoLocation)
-        // Add distance to locations
+        .slice((state.page - 1) * PER_PAGE, state.page * PER_PAGE)
+    : currentTourStops
+        .filter(tourStop => tourStop.geoLocation)
         .map(tourStop => {
           const distance = computeDistance(
             tourStop.geoLocation,
@@ -71,13 +73,8 @@ const MapView = ({
             sortValue: v,
           }
         })
-        // Sort by distance
-        // .sort((a, b) => a.distance - b.distance)
         .sort((a, b) => a.sortValue - b.sortValue)
-        // Paginate
-        .slice((state.page - 1) * PER_PAGE, state.page * PER_PAGE),
-    [currentTourStops, state.mapCenter, state.page]
-  )
+        .slice((state.page - 1) * PER_PAGE, state.page * PER_PAGE)
 
   return (
     <div
