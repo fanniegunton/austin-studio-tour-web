@@ -17,7 +17,10 @@ const Tags = React.memo(({ tags, className }) => (
           textTransform: "lowercase",
         }}
       >
-        <Icons.Tag css={{ marginRight: 4, width: 8, flex: "0 0 8px" }} /> {tag}
+        <Icons.Tag
+          css={{ marginRight: 4, width: 8, height: 8, flex: "0 0 8px" }}
+        />{" "}
+        {tag}
       </div>
     ))}
   </div>
