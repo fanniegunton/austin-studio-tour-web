@@ -63,7 +63,9 @@ const TourStopsViewer = ({
   }, [fuse, state, tourStops])
 
   const currentTourStops =
-    state.mode === MODES.MAP && state.mapBounds
+    state.mode === MODES.MAP &&
+    state.mapBounds &&
+    !state.filters.has("bookmarkedOnly")
       ? filters.inView(state.mapBounds)(filteredTourStops)
       : filteredTourStops
 
