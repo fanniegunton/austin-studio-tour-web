@@ -126,11 +126,16 @@ const filters = {
 
 const fuseConfig = {
   shouldSort: true,
-  threshold: 0.4,
-  location: 0,
-  distance: 100,
-  minMatchCharLength: 1,
-  keys: ["name", "category", "bio", "stopNumber"],
+  ignoreFieldNorm: true,
+  ignoreLocation: true,
+  keys: [
+    { name: "name", weight: 1.4 },
+    { name: "category", weight: 1.3 },
+    { name: "bio", weight: 1 },
+    { name: "artistStatement", weight: 0.7 },
+    { name: "address", weight: 0.7 },
+    { name: "stopNumber", weight: 1.5 },
+  ],
 }
 
 const applyFilters = ({ list, filters, state }) =>
