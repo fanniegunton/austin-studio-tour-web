@@ -4,9 +4,6 @@ import GoogleMapReact from "google-map-react"
 import MapMarker from "components/MapMarker"
 import theme from "styles/theme"
 
-// Coordinates of the Texas State Capitol, just north of downtown Austin
-const defaultCenter = { lat: 30.274711897776527, lng: -97.74023069179279 }
-
 const Map = ({
   locations,
   onChange,
@@ -34,7 +31,7 @@ const Map = ({
   >
     <GoogleMapReact
       bootstrapURLKeys={{ key: process.env.GOOGLE_MAPS_API_KEY }}
-      center={center || defaultCenter}
+      center={center}
       zoom={zoom || 14}
       onChange={onChange}
       options={createMapOptions}

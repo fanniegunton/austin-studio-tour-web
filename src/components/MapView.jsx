@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import PropTypes from "prop-types"
 import { useMediaQuery } from "@material-ui/core"
 import theme from "styles/theme"
@@ -9,7 +9,40 @@ import Map from "components/Map"
 import ActiveListingPanel from "components/ActiveListingPanel"
 import cloneElement from "lib/cloneElement"
 
-const PER_PAGE = 500
+const PER_PAGE = 100
+
+// Adapted from https://www.movable-type.co.uk/scripts/latlong.html
+const computeDistance = (pt1, pt2) => {
+  const toRad = deg => (Math.PI * deg) / 180
+
+  const R = 6371e3 // metres
+
+  // Convert to radians
+  const φ1 = toRad(pt1.lat)
+  const φ2 = toRad(pt2.lat)
+  const Δφ = toRad(pt2.lat - pt1.lat)
+  const Δλ = toRad(pt2.lng - pt1.lng)
+
+  // Haversine Formula
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2)
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+  const d = R * c
+
+  // Convert to miles
+  return d / 1609
+}
+
+const sortValue = r => {
+  let v = r.distance * 3
+  if (!r.mainImage) v = v * 2
+  if (!r.artistPhoto) v = v * 1.5
+  if (!r.website) v = v * 1.5
+
+  return v
+}
 
 const MapView = ({
   state,
@@ -20,9 +53,31 @@ const MapView = ({
 }) => {
   const mobile = useMediaQuery(theme.mobile)
   const [mapOpen, setMapOpen] = useState(true)
-  const paginatedTourStops = currentTourStops
-    .filter(tourStop => tourStop.geoLocation)
-    .slice((state.page - 1) * PER_PAGE, state.page * PER_PAGE)
+
+  const paginatedTourStops = useMemo(
+    () =>
+      currentTourStops
+        .filter(tourStop => tourStop.geoLocation)
+        // Add distance to locations
+        .map(tourStop => {
+          const distance = computeDistance(
+            tourStop.geoLocation,
+            state.mapCenter
+          )
+          const v = sortValue({ ...tourStop, distance })
+          return {
+            ...tourStop,
+            distance,
+            sortValue: v,
+          }
+        })
+        // Sort by distance
+        // .sort((a, b) => a.distance - b.distance)
+        .sort((a, b) => a.sortValue - b.sortValue)
+        // Paginate
+        .slice((state.page - 1) * PER_PAGE, state.page * PER_PAGE),
+    [currentTourStops, state.mapCenter, state.page]
+  )
 
   return (
     <div

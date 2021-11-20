@@ -9,6 +9,8 @@ export const initialState = {
   page: 1,
   activeListing: null,
   mapBounds: null,
+  // Coordinates of the Texas State Capitol, just north of downtown Austin
+  mapCenter: { lat: 30.274711897776527, lng: -97.74023069179279 },
 }
 
 export const reducer = (state, { action, value, ...props }) => {
