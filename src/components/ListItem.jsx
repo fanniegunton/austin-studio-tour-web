@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import theme from "styles/theme"
 import SanityImage from "gatsby-plugin-sanity-image"
 import hexToRgb from "lib/hexToRgb"
+import Tags from "components/Tags"
 
 const ListItem = React.memo(
   ({
@@ -38,6 +39,7 @@ const ListItem = React.memo(
             {...mainImage}
             width={80}
             height={80}
+            alt=""
             css={{
               flex: "0 0 80px",
               width: "80px",
@@ -47,19 +49,31 @@ const ListItem = React.memo(
             }}
           />
         )}
-        <div>
-          <h4 css={{ ...theme.t4 }}>{stopType}</h4>
-
-          <h3
+        <div css={{ flex: "1 1 auto" }}>
+          <div
             css={{
-              color: theme.n80,
-              fontSize: 15,
-              fontWeight: 500,
-              marginRight: 16,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 4,
             }}
           >
-            {stopNumber} • {name}
-          </h3>
+            <h3
+              css={{
+                color: theme.n80,
+                fontSize: 15,
+                fontWeight: 500,
+                marginRight: 16,
+              }}
+            >
+              {name}
+            </h3>
+
+            <div css={{ fontFamily: "monospace", whiteSpace: "nowrap" }}>
+              <span css={{ fontSize: "smaller" }}>#</span>
+              {stopNumber}
+            </div>
+          </div>
 
           {address && (
             <div css={{ fontSize: 14, marginBottom: 6, color: theme.n50 }}>
@@ -67,9 +81,7 @@ const ListItem = React.memo(
             </div>
           )}
           {category && (
-            <div css={{ fontSize: 14, marginBottom: 6, color: theme.n50 }}>
-              {category}
-            </div>
+            <Tags tags={category.split(" and ")} css={{ marginBottom: 6 }} />
           )}
         </div>
       </div>
