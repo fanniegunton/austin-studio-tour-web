@@ -39,12 +39,11 @@
     "dotenv": "^7.0.0",
     "emotion-normalize": "^10.0.0",
     "fuse.js": "^5.0.7-beta",
-    "gatsby": "^2.6.0",
-    "gatsby-image": "^2.1.0",
+    "gatsby": "^2.32.13",
     "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-env-variables": "^1.0.1",
-    "gatsby-plugin-google-analytics": "^2.1.35",
     "gatsby-plugin-react-helmet": "^3.0.10",
+    "gatsby-plugin-sanity-image": "^0.10.0",
     "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-sanity": "^5.0.1",
@@ -60,12 +59,13 @@
   },
   "scripts": {
     "develop": "gatsby develop",
-    "prebuild": "node geocode-locations.js",
     "build": "gatsby build",
     "clean": "gatsby clean",
     "test": "jest"
   },
   "resolutions": {
-    "chokidar": "^3.3.0"
+    "chokidar": "^3.3.0",
+    "gatsby-recipes": "^1.2.0",
+    "remark-mdx": "1.6.22"
   }
 }
