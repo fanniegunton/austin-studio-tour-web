@@ -27,13 +27,15 @@ const TourStopsViewer = ({
       filter => filters[filter]
     )
 
-    return applyFilters(
-      state.searchQuery?.length > 0
-        ? fuse.search(state.searchQuery).map(res => res.item)
-        : tourStops,
-      activeFilters
-    )
-  }, [fuse, state.searchQuery, state.filters, tourStops])
+    return applyFilters({
+      list:
+        state.searchQuery?.length > 0
+          ? fuse.search(state.searchQuery).map(res => res.item)
+          : tourStops,
+      filters: activeFilters,
+      state,
+    })
+  }, [fuse, state, tourStops])
 
   const currentTourStops =
     state.mode === MODES.MAP && state.mapBounds
@@ -45,8 +47,7 @@ const TourStopsViewer = ({
       key={`filter-bar-${state.filterBarKey}`}
       listTitle="tour stops"
       defaultSearchQuery={state.searchQuery || defaultSearchQuery}
-      mode={state.mode}
-      filters={state.filters}
+      state={state}
       dispatch={dispatch}
     />
   )
@@ -92,6 +93,8 @@ const filters = {
       ),
   showEast: list => list.filter(entry => entry.stopType === "east"),
   showWest: list => list.filter(entry => entry.stopType === "west"),
+  bookmarkedOnly: (list, state) =>
+    list.filter(entry => state.bookmarkedStops.has(entry.stopNumber)),
 }
 
 const fuseConfig = {
@@ -103,5 +106,7 @@ const fuseConfig = {
   keys: ["name", "category", "bio", "stopNumber"],
 }
 
-const applyFilters = (list, filters) =>
-  filters.filter(Boolean).reduce((results, filter) => filter(results), list)
+const applyFilters = ({ list, filters, state }) =>
+  filters
+    .filter(Boolean)
+    .reduce((results, filter) => filter(results, state), list)

@@ -1,16 +1,15 @@
 import React, { useCallback, useRef } from "react"
 import PropTypes from "prop-types"
+import { RiHeartFill } from "@coreyward/react-icons/ri"
 import { debounce } from "lodash-es"
 import hexToRgb from "lib/hexToRgb"
-import ModeSelector, { MODES } from "components/ModeSelector"
 import Checkbox from "components/Checkbox"
 import theme from "styles/theme"
 
 const FilterBar = ({
   listTitle,
   defaultSearchQuery,
-  mode,
-  filters,
+  state,
   dispatch,
   className,
 }) => {
@@ -102,37 +101,28 @@ const FilterBar = ({
 
           <Checkbox
             onChange={() => toggleFilter("showEast")}
-            checked={filters.has("showEast")}
+            checked={state.filters.has("showEast")}
             css={{
               flex: "0 0 auto",
             }}
           >
             East Stops Only
           </Checkbox>
+          <Checkbox
+            onChange={() => toggleFilter("bookmarkedOnly")}
+            checked={state.filters.has("bookmarkedOnly")}
+            css={{
+              flex: "0 0 auto",
+              marginLeft: 8,
+              [theme.mobile]: { margin: "8px 0 0 0" },
+            }}
+          >
+            <RiHeartFill
+              css={{ position: "relative", top: 2, marginRight: "0.5em" }}
+            />
+            Favorites ({state.bookmarkedStops.size || 0})
+          </Checkbox>
         </div>
-      </div>
-
-      <div
-        css={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-      >
-        <div
-          css={{
-            ...theme.smallcaps,
-            color: theme.n40,
-            fontSize: 10,
-            marginBottom: 8,
-          }}
-        >
-          View Mode
-        </div>
-        <ModeSelector
-          activeMode={mode}
-          setMode={value => dispatch({ action: "setViewMode", value })}
-        />
       </div>
     </div>
   )
@@ -143,8 +133,10 @@ export default FilterBar
 FilterBar.propTypes = {
   listTitle: PropTypes.string.isRequired,
   defaultSearchQuery: PropTypes.string,
-  mode: PropTypes.oneOf(Object.values(MODES)),
-  filters: PropTypes.instanceOf(Set).isRequired,
+  state: PropTypes.shape({
+    filters: PropTypes.instanceOf(Set),
+    bookmarkedStops: PropTypes.instanceOf(Set),
+  }).isRequired,
   className: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
 }

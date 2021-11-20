@@ -8,7 +8,7 @@ import ArtistDetails from "components/ArtistDetails"
 import hexToRgb from "lib/hexToRgb"
 import Icons from "lib/icons"
 
-const ActiveListingPanel = ({ listing: currentListing, dispatch }) => {
+const ActiveListingPanel = ({ listing: currentListing, dispatch, state }) => {
   const mobile = useMediaQuery(theme.mobile)
   const prevListingRef = useRef(currentListing)
 
@@ -112,7 +112,12 @@ const ActiveListingPanel = ({ listing: currentListing, dispatch }) => {
           </div>
         </div>
 
-        <ArtistDetails css={{ marginBottom: 16 }} {...listing} />
+        <ArtistDetails
+          css={{ marginBottom: 16 }}
+          dispatch={dispatch}
+          bookmarked={state.bookmarkedStops.has(listing.stopNumber)}
+          {...listing}
+        />
       </div>
     </ScrollLock>
   )
@@ -121,7 +126,13 @@ const ActiveListingPanel = ({ listing: currentListing, dispatch }) => {
 export default ActiveListingPanel
 
 ActiveListingPanel.propTypes = {
-  listing: PropTypes.shape(ArtistDetails.propTypes),
+  listing: PropTypes.shape({
+    ...ArtistDetails.propTypes,
+    dispatch: undefined,
+  }),
+  state: PropTypes.shape({
+    bookmarkedStops: PropTypes.instanceOf(Set).isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
 }
 

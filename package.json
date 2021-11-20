@@ -29,6 +29,7 @@
     "react-test-renderer": "^16.13.1"
   },
   "dependencies": {
+    "@coreyward/react-icons": "^3.11.0",
     "@emotion/core": "^10.0.10",
     "@material-ui/core": "^4.9.7",
     "@sanity/block-content-to-react": "^2.0.6",

@@ -106,6 +106,7 @@ const MapView = ({
       )}
 
       <ActiveListingPanel
+        state={state}
         dispatch={dispatch}
         listing={
           state.activeListing &&
