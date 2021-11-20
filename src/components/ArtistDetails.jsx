@@ -42,7 +42,16 @@ const ArtistDetails = ({
           {...mainImage}
           width={352}
           alt=""
-          css={{ display: "block", margin: "1em 0", borderRadius: 4 }}
+          css={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            margin: "1em 0",
+            borderRadius: 4,
+          }}
+          options={{
+            __experimentalAspectRatio: true,
+          }}
         />
       )}
 
