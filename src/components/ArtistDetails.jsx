@@ -110,7 +110,6 @@ ArtistDetails.propTypes = {
   className: PropTypes.string,
   astUrl: PropTypes.string,
   address: PropTypes.string,
-  openForBusiness: PropTypes.bool.isRequired,
   category: PropTypes.string,
   name: PropTypes.string.isRequired,
   stopType: PropTypes.string,

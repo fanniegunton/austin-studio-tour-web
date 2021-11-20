@@ -80,8 +80,6 @@ const TourStopsViewer = ({
 export default TourStopsViewer
 
 const filters = {
-  hideClosed: list => list.filter(entry => entry.openForBusiness),
-  currentlyOpen: list => list,
   inView: bounds => list =>
     list
       .filter(tourStop => tourStop.geoLocation)
