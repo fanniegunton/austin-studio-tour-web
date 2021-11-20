@@ -104,6 +104,9 @@ const FilterBar = ({
             checked={state.filters.has("showEast")}
             css={{
               flex: "0 0 auto",
+              [theme.mobile]: {
+                marginTop: 16,
+              },
             }}
           >
             East Stops Only
