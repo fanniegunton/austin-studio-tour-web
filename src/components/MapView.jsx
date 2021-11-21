@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useMediaQuery } from "@material-ui/core"
 import theme from "styles/theme"

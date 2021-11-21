@@ -1,4 +1,5 @@
 import React, { useReducer, useMemo, useEffect } from "react"
+import PropTypes from "prop-types"
 import Fuse from "fuse.js"
 import { reducer, initialState } from "reducers/tourStopsViewer"
 import { MODES } from "components/ModeSelector"
@@ -14,8 +15,6 @@ const TourStopsViewer = ({
   defaultSearchQuery,
   defaultFilters,
   defaultViewMode,
-  showingAll,
-  preserveOrder,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
@@ -82,7 +81,6 @@ const TourStopsViewer = ({
   const noResults = (
     <NoResults
       searchQuery={state.searchQuery}
-      showingAll={showingAll}
       resetSearch={() => {
         dispatch({ action: "clearSearchQuery" })
       }}
@@ -100,12 +98,23 @@ const TourStopsViewer = ({
       currentTourStops={currentTourStops}
       filterBar={filterBar}
       noResults={noResults}
-      preserveOrder={preserveOrder}
     />
   )
 }
 
 export default TourStopsViewer
+
+TourStopsViewer.propTypes = {
+  tourStops: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  defaultSearchQuery: PropTypes.string,
+  defaultFilters: PropTypes.arrayOf(PropTypes.string),
+  defaultViewMode: PropTypes.oneOf(Object.values(MODES)),
+}
 
 const filters = {
   inView: bounds => list =>
